@@ -13,10 +13,6 @@ public class StudentEntity {
     @Column(name = "Student_Name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "Department_id")
-    private DepartmentEntity departmentEntity;
-
     public Long getId() {
         return id;
     }

@@ -17,7 +17,7 @@ public class JournalEntryController {
     private JournalEntryServices journalEntryServices;
 
     @PostMapping()
-    public Boolean createEntry (@RequestBody JournalEntry myEntry){
+    public Boolean createEntry (@RequestBody JournalEntry myEntry) throws InterruptedException {
         journalEntryServices.saveEntry(myEntry);
         return true;
     }
@@ -30,7 +30,6 @@ public class JournalEntryController {
     @GetMapping("/fetch") //localhost:8080/journal/get?id=3
     public Optional<JournalEntry> getEntryByID (@RequestParam Long id){
         journalEntryServices.getEntryByID(id);
-
         return journalEntryServices.getEntryByID(id);
     }
 

@@ -10,4 +10,6 @@ public interface DepartmentService {
     DepartmentDTO createDepartment(DepartmentDTO departmentDTO);
 
     List<DepartmentDTO> getAllDepartment();
+
+    DepartmentDTO getDepartmentByID(Long id);
 }

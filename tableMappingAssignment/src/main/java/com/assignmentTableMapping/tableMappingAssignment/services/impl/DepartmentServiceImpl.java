@@ -2,16 +2,15 @@ package com.assignmentTableMapping.tableMappingAssignment.services.impl;
 
 import com.assignmentTableMapping.tableMappingAssignment.dto.DepartmentDTO;
 import com.assignmentTableMapping.tableMappingAssignment.entity.DepartmentEntity;
-import com.assignmentTableMapping.tableMappingAssignment.entity.StudentEntity;
 import com.assignmentTableMapping.tableMappingAssignment.repository.DepartmentRepository;
 import com.assignmentTableMapping.tableMappingAssignment.services.DepartmentService;
 import com.assignmentTableMapping.tableMappingAssignment.util.DepartmentEntityToDTOMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -19,7 +18,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
     @Autowired
-    DepartmentEntityToDTOMapping departmentEntityToDTOMapping;
+    private DepartmentEntityToDTOMapping departmentEntityToDTOMapping;
 
     @Override
     public DepartmentDTO createDepartment(DepartmentDTO departmentDTO){
@@ -31,11 +30,19 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<DepartmentDTO> getAllDepartment(){
-    Iterable<DepartmentEntity> departmentEntities = departmentRepository.findAll();
+    List<DepartmentEntity> departmentEntities = departmentRepository.findAll();
     List<DepartmentDTO> departmentDTOs = new ArrayList<>();
     for (DepartmentEntity entity : departmentEntities){
         departmentDTOs.add(departmentEntityToDTOMapping.map(entity));
     }
     return departmentDTOs;
     }
+
+    @Override
+    public DepartmentDTO getDepartmentByID(Long id){
+        Optional<DepartmentEntity> optionalDepartmentEntity = departmentRepository.findById(id);
+        return departmentEntityToDTOMapping.map(optionalDepartmentEntity.get());
+
+    }
+
 }
